@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding?.tvTimer?.text = "${(timeDuration/1000).toString()}"
         binding?.startBtn?.setOnClickListener {
             Toast.makeText(this@MainActivity,"timer started", Toast.LENGTH_SHORT).show()
+            startTimer(pauseOffset)
         }
         binding?.pauseBtn?.setOnClickListener {
             Toast.makeText(this@MainActivity,"timer paused",Toast.LENGTH_SHORT).show()
@@ -32,5 +33,18 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity,"reset timer",Toast.LENGTH_SHORT).show()
         }
 
+    }
+    private fun startTimer(pauseOffsetL :Long){
+        //start the timer for 60 sec
+        countDownTimer = object : CountDownTimer(timeDuration-pauseOffsetL,1000){
+            override fun onTick(millisUntilFinished: Long){
+                pauseOffset=timeDuration-millisUntilFinished
+                binding?.tvTimer?.text = (millisUntilFinished/1000).toString() //current timer value
+            }
+
+            override fun onFinish() {
+                Toast.makeText(this@MainActivity,"timer finished!",Toast.LENGTH_SHORT).show()
+            }
+        }.start()
     }
 }
