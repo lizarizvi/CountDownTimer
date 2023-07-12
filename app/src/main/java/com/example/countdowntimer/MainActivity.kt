@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding?.pauseBtn?.setOnClickListener {
             Toast.makeText(this@MainActivity,"timer paused",Toast.LENGTH_SHORT).show()
+            pauseTimer()
         }
         binding?.resetBtn?.setOnClickListener {
             Toast.makeText(this@MainActivity,"reset timer",Toast.LENGTH_SHORT).show()
@@ -46,5 +47,12 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity,"timer finished!",Toast.LENGTH_SHORT).show()
             }
         }.start()
+    }
+
+    private fun pauseTimer(){
+        //pause the timer on pauseOffset
+        if(countDownTimer!=null){
+            countDownTimer!!.cancel()
+        }
     }
 }
